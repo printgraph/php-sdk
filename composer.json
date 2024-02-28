@@ -1,0 +1,21 @@
+{
+    "name": "printgraph/php-sdk",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Printgraph\\PhpSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "polidog",
+            "email": "polidogs@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "^7.8",
+        "prewk/result": "^3.3"
+    }
+}

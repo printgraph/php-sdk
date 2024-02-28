@@ -1,0 +1,47 @@
+<?php
+
+namespace Printgraph\PhpSdk\Client;
+
+use GuzzleHttp\Handler\CurlHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use Psr\Http\Message\RequestInterface;
+
+final class ClientFactory
+{
+    /**
+     * HttpOptions.
+     *
+     * @var array
+     */
+    private static array $httpOptions = [
+        'base_uri' => 'https://api.printgraph.jp',
+        'defaults' => [
+            'timeout' => 300,
+            'debug' => false,
+        ],
+        'headers' => [
+            'User-Agent' => 'php-printgraph-sdk v1',
+            'Accept' => 'application/json',
+        ],
+    ];
+
+    public static function createHttpClient(string $token, array $middlewares = []): ClientInterface
+    {
+        $stack = new HandlerStack();
+        $stack->setHandler(new CurlHandler());
+        $stack->push(
+            Middleware::mapRequest(
+                static fn (RequestInterface $request) => $request->withHeader('Authorization', 'Token '.$token)
+            )
+        );
+        foreach ($middlewares as $middleware) {
+            $stack->push($middleware);
+        }
+
+        $options = array_merge(self::$httpOptions, ['handler' => $stack]);
+
+        $httpClient = new \GuzzleHttp\Client($options);
+        return new Client($httpClient, 'v1');
+    }
+}
