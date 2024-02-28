@@ -6,7 +6,6 @@ use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Prewk\Result;
 use Prewk\Result\{Err, Ok};
-use Printgraph\PhpSdk\Exception\ClientException;
 
 
 final class Client implements ClientInterface

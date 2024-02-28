@@ -12,7 +12,7 @@ final class ClientFactory
     /**
      * HttpOptions.
      *
-     * @var array
+     * @var mixed[]
      */
     private static array $httpOptions = [
         'base_uri' => 'https://api.printgraph.jp',
@@ -26,6 +26,11 @@ final class ClientFactory
         ],
     ];
 
+    /**
+     * @param string $token
+     * @param array<callable> $middlewares
+     * @return ClientInterface
+     */
     public static function createHttpClient(string $token, array $middlewares = []): ClientInterface
     {
         $stack = new HandlerStack();
