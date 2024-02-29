@@ -8,9 +8,10 @@ use Psr\Http\Message\ResponseInterface;
 interface GeneratorInterface
 {
     /**
-     *
      * @param GenerateRequest $generateRequest
      * @return Result<ResponseInterface, ResponseInterface>
+     *
+     * @throws \Exception
      */
     public function generate(GenerateRequest $generateRequest): Result;
 }

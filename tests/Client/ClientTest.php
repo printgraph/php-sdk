@@ -7,6 +7,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Printgraph\PhpSdk\Client\Client;
 use Prewk\Result\{Err, Ok};
+use Psr\Http\Message\ResponseInterface;
 
 final class ClientTest extends TestCase
 {
@@ -19,9 +20,12 @@ final class ClientTest extends TestCase
             ->willReturn(new Response(200, [], 'test'));
 
         $client = new Client($httpClientMock, 'v1');
-        $response = $client->request('GET', 'test');
-        self::assertInstanceOf(Ok::class, $response);
-        self::assertEquals('test', $response->unwrap()->getBody()->getContents());
+        $result = $client->request('GET', 'test');
+        self::assertInstanceOf(Ok::class, $result);
+
+        /** @var ResponseInterface $response */
+        $response = $result->unwrap();
+        self::assertEquals('test', $response->getBody()->getContents());
     }
 
     public function testRequestFailure(): void

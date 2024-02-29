@@ -8,6 +8,7 @@ use Prewk\Result\{Ok, Err};
 use Printgraph\PhpSdk\Api\Pdf\Generator\GenerateRequest;
 use Printgraph\PhpSdk\Api\Pdf\Generator\Generator;
 use Printgraph\PhpSdk\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class GeneratorTest extends TestCase
 {
@@ -36,7 +37,10 @@ final class GeneratorTest extends TestCase
         ));
 
         self::assertInstanceOf(Ok::class, $result);
-        self::assertEquals('pdf-content', $result->unwrap()->getBody()->getContents());
+
+        /** @var ResponseInterface $response */
+        $response = $result->unwrap();
+        self::assertEquals('pdf-content', $response->getBody()->getContents());
     }
 
     public function testGeneratorRequestFailure(): void
