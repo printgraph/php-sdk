@@ -7,6 +7,11 @@
             "Printgraph\\PhpSdk\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Printgraph\\PhpSdk\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "polidog",
@@ -19,6 +24,7 @@
         "prewk/result": "^3.3"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^11.0"
     }
 }
