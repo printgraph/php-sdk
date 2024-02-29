@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Printgraph\PhpSdk\Api\Pdf\Generator;
 
 use Prewk\Result;
@@ -7,9 +9,7 @@ use Printgraph\PhpSdk\Client\ClientInterface;
 
 final class Generator implements GeneratorInterface
 {
-    public function __construct(private readonly ClientInterface $client)
-    {
-    }
+    public function __construct(private readonly ClientInterface $client) {}
 
     /**
      * @throws \Exception
@@ -22,7 +22,7 @@ final class Generator implements GeneratorInterface
                 'params' => $generateRequest->params,
             ],
             'headers' => [
-                'Accept' => ['application/pdf', 'application/json']
+                'Accept' => ['application/pdf', 'application/json'],
             ],
         ]);
     }

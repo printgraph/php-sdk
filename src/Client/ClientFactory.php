@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Printgraph\PhpSdk\Client;
 
 use GuzzleHttp\Handler\CurlHandler;
@@ -37,7 +39,7 @@ final class ClientFactory
         $stack->setHandler(new CurlHandler());
         $stack->push(
             Middleware::mapRequest(
-                static fn (RequestInterface $request) => $request->withHeader('Authorization', 'Token '.$token)
+                static fn(RequestInterface $request) => $request->withHeader('Authorization', 'Token ' . $token)
             )
         );
         foreach ($middlewares as $middleware) {

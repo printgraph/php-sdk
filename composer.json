@@ -25,12 +25,17 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^11.0"
+        "phpunit/phpunit": "^11.0",
+        "friendsofphp/php-cs-fixer": "^3.51"
     },
     "scripts": {
         "tests": [
+            "php-cs-fixer fix --dry-run",
             "phpstan analyse",
             "phpunit"
+        ],
+        "cs-fix": [
+            "php-cs-fixer fix"
         ]
     }
 }

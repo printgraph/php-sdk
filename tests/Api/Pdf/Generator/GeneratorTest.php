@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Printgraph\PhpSdk\Tests\Api\Pdf\Generator;
 
 use GuzzleHttp\Psr7\Response;
@@ -24,7 +26,7 @@ final class GeneratorTest extends TestCase
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
                 ],
                 'headers' => [
-                    'Accept' => ['application/pdf', 'application/json']
+                    'Accept' => ['application/pdf', 'application/json'],
                 ],
             ])
             ->willReturn(new Ok(new Response(200, [], 'pdf-content')))
@@ -55,7 +57,7 @@ final class GeneratorTest extends TestCase
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
                 ],
                 'headers' => [
-                    'Accept' => ['application/pdf', 'application/json']
+                    'Accept' => ['application/pdf', 'application/json'],
                 ],
             ])
             ->willReturn(new Err(new Response(500, [], 'error')))

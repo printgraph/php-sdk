@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Printgraph\PhpSdk\Api\Pdf\Generator;
 
 use Prewk\Result;

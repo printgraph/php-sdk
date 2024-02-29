@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Printgraph\PhpSdk\Client;
 
 use Prewk\Result;
