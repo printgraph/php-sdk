@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Client;
+namespace Printgraph\PhpSdk\Tests\Client;
 
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\Psr7\Response;
