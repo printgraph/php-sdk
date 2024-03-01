@@ -24,7 +24,7 @@ use Printgraph\PhpSdk\Printgraph;
 require 'vendor/autoload.php';
 
 $pringraph = new Printgraph(
-    ClientFactory::createHttpClient('Ns7N39j0.VBQxTfp-LCUXlEKRaXpCONWGx9IAplbaa5VEvlPD89OVrJQ2dM-F60cm8')
+    ClientFactory::createHttpClient('<<your token>>')
 );
 $request = new GenerateRequest(
     'template',
