@@ -18,11 +18,11 @@ final class ClientTest extends TestCase
         $httpClientMock = $this->createMock(HttpClientInterface::class);
         $httpClientMock->expects($this->once())
             ->method('request')
-            ->with('GET', '/v1/test', [])
+            ->with('GET', '/test', [])
             ->willReturn(new Response(200, [], 'test'));
 
-        $client = new Client($httpClientMock, 'v1');
-        $result = $client->request('GET', 'test');
+        $client = new Client($httpClientMock);
+        $result = $client->request('GET', '/test');
         self::assertInstanceOf(Ok::class, $result);
 
         /** @var ResponseInterface $response */
@@ -35,11 +35,11 @@ final class ClientTest extends TestCase
         $httpClientMock = $this->createMock(HttpClientInterface::class);
         $httpClientMock->expects($this->once())
             ->method('request')
-            ->with('GET', '/v1/test', [])
+            ->with('GET', '/test', [])
             ->willReturn(new Response(500, [], 'error'));
 
         $client = new Client($httpClientMock, 'v1');
-        $response = $client->request('GET', 'test');
+        $response = $client->request('GET', '/test');
         self::assertInstanceOf(Err::class, $response);
     }
 }

@@ -13,7 +13,6 @@ final class Client implements ClientInterface
 {
     public function __construct(
         private readonly HttpClientInterface $httpClient,
-        private readonly string $apiVersion
     ) {}
 
     /**
@@ -21,7 +20,6 @@ final class Client implements ClientInterface
      */
     public function request(string $method, string $path, array $options = []): Result
     {
-        $path = sprintf('/%s/%s', $this->apiVersion, $path);
         $response = $this->httpClient->request($method, $path, $options);
         if ($response->getStatusCode() >= 400) {
             return new Err($response);

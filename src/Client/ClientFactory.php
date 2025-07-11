@@ -39,7 +39,7 @@ final class ClientFactory
         $stack->setHandler(new CurlHandler());
         $stack->push(
             Middleware::mapRequest(
-                static fn(RequestInterface $request) => $request->withHeader('Authorization', 'Token ' . $token)
+                static fn(RequestInterface $request) => $request->withHeader('Authorization', 'Bearer ' . $token)
             )
         );
         foreach ($middlewares as $middleware) {
@@ -49,6 +49,6 @@ final class ClientFactory
         $options = array_merge(self::$httpOptions, ['handler' => $stack]);
 
         $httpClient = new \GuzzleHttp\Client($options);
-        return new Client($httpClient, 'v1');
+        return new Client($httpClient);
     }
 }
