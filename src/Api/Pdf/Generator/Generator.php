@@ -17,8 +17,8 @@ final class Generator implements GeneratorInterface
     public function generate(GenerateRequest $generateRequest): Result
     {
         return $this->client->request('POST', 'pdf/generate', [
-            'form_params' => [
-                'template' => $generateRequest->template,
+            'json' => [
+                'templateKey' => $generateRequest->templateKey,
                 'params' => $generateRequest->params,
             ],
             'headers' => [

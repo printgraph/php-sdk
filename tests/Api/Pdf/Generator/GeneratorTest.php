@@ -21,8 +21,8 @@ final class GeneratorTest extends TestCase
             ->expects($this->once())
             ->method('request')
             ->with('POST', 'pdf/generate', [
-                'form_params' => [
-                    'template' => 'template',
+                'json' => [
+                    'templateKey' => 'template',
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
                 ],
                 'headers' => [
@@ -52,8 +52,8 @@ final class GeneratorTest extends TestCase
             ->expects($this->once())
             ->method('request')
             ->with('POST', 'pdf/generate', [
-                'form_params' => [
-                    'template' => 'template',
+                'json' => [
+                    'templateKey' => 'template',
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
                 ],
                 'headers' => [
