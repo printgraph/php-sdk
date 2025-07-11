@@ -38,7 +38,7 @@ final class ClientTest extends TestCase
             ->with('GET', '/test', [])
             ->willReturn(new Response(500, [], 'error'));
 
-        $client = new Client($httpClientMock, 'v1');
+        $client = new Client($httpClientMock);
         $response = $client->request('GET', '/test');
         self::assertInstanceOf(Err::class, $response);
     }
