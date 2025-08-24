@@ -17,7 +17,6 @@ final class ClientFactory
      * @var mixed[]
      */
     private static array $httpOptions = [
-        'base_uri' => 'https://api.printgraph.jp',
         'defaults' => [
             'timeout' => 300,
             'debug' => false,
@@ -33,7 +32,7 @@ final class ClientFactory
      * @param array<callable> $middlewares
      * @return ClientInterface
      */
-    public static function createHttpClient(string $token, array $middlewares = []): ClientInterface
+    public static function createHttpClient(string $token, array $middlewares = [], string $baseUrl = 'https://api.printgraph.jp'): ClientInterface
     {
         $stack = new HandlerStack();
         $stack->setHandler(new CurlHandler());
@@ -46,7 +45,10 @@ final class ClientFactory
             $stack->push($middleware);
         }
 
-        $options = array_merge(self::$httpOptions, ['handler' => $stack]);
+        $options = array_merge(self::$httpOptions, [
+            'handler' => $stack,
+            'base_uri' => $baseUrl,
+        ]);
 
         $httpClient = new \GuzzleHttp\Client($options);
         return new Client($httpClient);

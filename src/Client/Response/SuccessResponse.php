@@ -27,7 +27,7 @@ final class SuccessResponse
         return $this->response->getStatusCode();
     }
 
-    public function getBody(): string
+    public function getContents(): string
     {
         return $this->response->getBody()->getContents();
     }
