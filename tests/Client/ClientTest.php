@@ -25,9 +25,10 @@ final class ClientTest extends TestCase
         $result = $client->request('GET', '/test');
         self::assertInstanceOf(Ok::class, $result);
 
-        /** @var ResponseInterface $response */
+        /** @var \Printgraph\PhpSdk\Client\Response\SuccessResponse $response */
         $response = $result->unwrap();
-        self::assertEquals('test', $response->getBody()->getContents());
+        self::assertInstanceOf(\Printgraph\PhpSdk\Client\Response\SuccessResponse::class, $response);
+        self::assertEquals('test', $response->getBody());
     }
 
     public function testRequestFailure(): void
@@ -36,10 +37,17 @@ final class ClientTest extends TestCase
         $httpClientMock->expects($this->once())
             ->method('request')
             ->with('GET', '/test', [])
-            ->willReturn(new Response(500, [], 'error'));
+            ->willReturn(new Response(400, [], 'Bad Request'));
 
         $client = new Client($httpClientMock);
         $response = $client->request('GET', '/test');
         self::assertInstanceOf(Err::class, $response);
+
+        /** @var \Printgraph\PhpSdk\Client\Response\ErrorResponse $error */
+        $error = $response->unwrapErr();
+        self::assertInstanceOf(\Printgraph\PhpSdk\Client\Response\ErrorResponse::class, $error);
+        self::assertEquals(400, $error->getStatusCode());
+        self::assertTrue($error->isClientError());
+        self::assertFalse($error->isServerError());
     }
 }
