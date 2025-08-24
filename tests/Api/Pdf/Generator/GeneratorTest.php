@@ -29,7 +29,7 @@ final class GeneratorTest extends TestCase
                     'Accept' => ['application/pdf', 'application/json'],
                 ],
             ])
-            ->willReturn(new Ok(new Response(200, [], 'pdf-content')))
+            ->willReturn(new Ok(new \Printgraph\PhpSdk\Client\Response\SuccessResponse(new Response(200, [], 'pdf-content'))))
         ;
 
         $generator = new Generator($mockClient);
@@ -40,9 +40,10 @@ final class GeneratorTest extends TestCase
 
         self::assertInstanceOf(Ok::class, $result);
 
-        /** @var ResponseInterface $response */
+        /** @var \Printgraph\PhpSdk\Client\Response\SuccessResponse $response */
         $response = $result->unwrap();
-        self::assertEquals('pdf-content', $response->getBody()->getContents());
+        self::assertInstanceOf(\Printgraph\PhpSdk\Client\Response\SuccessResponse::class, $response);
+        self::assertEquals('pdf-content', $response->getBody());
     }
 
     public function testGeneratorRequestFailure(): void
@@ -60,7 +61,7 @@ final class GeneratorTest extends TestCase
                     'Accept' => ['application/pdf', 'application/json'],
                 ],
             ])
-            ->willReturn(new Err(new Response(500, [], 'error')))
+            ->willReturn(new Err(new \Printgraph\PhpSdk\Client\Response\ErrorResponse(new Response(500, [], 'error'))))
         ;
 
         $generator = new Generator($mockClient);
@@ -70,5 +71,12 @@ final class GeneratorTest extends TestCase
         ));
 
         self::assertInstanceOf(Err::class, $result);
+
+        /** @var \Printgraph\PhpSdk\Client\Response\ErrorResponse $error */
+        $error = $result->unwrapErr();
+        self::assertInstanceOf(\Printgraph\PhpSdk\Client\Response\ErrorResponse::class, $error);
+        self::assertEquals(500, $error->getStatusCode());
+        self::assertTrue($error->isServerError());
+        self::assertFalse($error->isClientError());
     }
 }

@@ -10,8 +10,14 @@ use Psr\Http\Message\ResponseInterface;
 interface ClientInterface
 {
     /**
-     * @param mixed[] $options
-     * @return Result<ResponseInterface, ResponseInterface>
+     * HTTPリクエストを実行し、型安全なResult型で結果を返す
+     *
+     * @param string $method HTTPメソッド
+     * @param string $path リクエストパス
+     * @param mixed[] $options Guzzleオプション
+     * @return Result<Response\SuccessResponse, Response\ErrorResponse>
+     *
+     * @phpstan-return Result<Response\SuccessResponse, Response\ErrorResponse>
      */
     public function request(string $method, string $path, array $options = []): Result;
 }

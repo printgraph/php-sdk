@@ -16,15 +16,19 @@ final class Client implements ClientInterface
     ) {}
 
     /**
+     * HTTPリクエストを実行し、型安全なResult型で結果を返す
+     *
      * @throws GuzzleException
+     * @return Result<Response\SuccessResponse, Response\ErrorResponse>
+     * @phpstan-return Result<Response\SuccessResponse, Response\ErrorResponse>
      */
     public function request(string $method, string $path, array $options = []): Result
     {
         $response = $this->httpClient->request($method, $path, $options);
         if ($response->getStatusCode() >= 400) {
-            return new Err($response);
+            return new Err(new Response\ErrorResponse($response));
         }
 
-        return new Ok($response);
+        return new Ok(new Response\SuccessResponse($response));
     }
 }
