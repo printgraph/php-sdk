@@ -35,5 +35,5 @@ $response = $pringraph->pdf()->generate($request)->expect(
     new \RuntimeException('Failed to generate PDF')
 );
 
-file_put_contents('test.pdf', $response->getBody()->getContents());
+file_put_contents('test.pdf', $response->getContents());
 ```

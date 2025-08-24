@@ -28,7 +28,7 @@ final class ClientTest extends TestCase
         /** @var \Printgraph\PhpSdk\Client\Response\SuccessResponse $response */
         $response = $result->unwrap();
         self::assertInstanceOf(\Printgraph\PhpSdk\Client\Response\SuccessResponse::class, $response);
-        self::assertEquals('test', $response->getBody());
+        self::assertEquals('test', $response->getContents());
     }
 
     public function testRequestFailure(): void

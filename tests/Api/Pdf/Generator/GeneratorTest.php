@@ -43,7 +43,7 @@ final class GeneratorTest extends TestCase
         /** @var \Printgraph\PhpSdk\Client\Response\SuccessResponse $response */
         $response = $result->unwrap();
         self::assertInstanceOf(\Printgraph\PhpSdk\Client\Response\SuccessResponse::class, $response);
-        self::assertEquals('pdf-content', $response->getBody());
+        self::assertEquals('pdf-content', $response->getContents());
     }
 
     public function testGeneratorRequestFailure(): void
