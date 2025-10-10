@@ -22,8 +22,9 @@ final class GeneratorTest extends TestCase
             ->method('request')
             ->with('POST', 'pdf/generate', [
                 'json' => [
-                    'templateKey' => 'template',
+                    'templateId' => 'template',
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
+                    'format' => 'A4',
                 ],
                 'headers' => [
                     'Accept' => ['application/pdf', 'application/json'],
@@ -54,8 +55,9 @@ final class GeneratorTest extends TestCase
             ->method('request')
             ->with('POST', 'pdf/generate', [
                 'json' => [
-                    'templateKey' => 'template',
+                    'templateId' => 'template',
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
+                    'format' => 'A4',
                 ],
                 'headers' => [
                     'Accept' => ['application/pdf', 'application/json'],
