@@ -25,7 +25,7 @@ final class GenerateRequest
             throw new \InvalidArgumentException('params is required');
         }
 
-        $allowedFormats = ['A4', 'A3', 'Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6'];
+        $allowedFormats = ['A4', 'A3', 'Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A5', 'A6'];
         if (!in_array($this->format, $allowedFormats, true)) {
             throw new \InvalidArgumentException('format must be one of: ' . implode(', ', $allowedFormats));
         }
