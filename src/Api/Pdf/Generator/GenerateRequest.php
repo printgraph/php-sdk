@@ -21,10 +21,6 @@ final class GenerateRequest
             throw new \InvalidArgumentException('templateId is required');
         }
 
-        if (empty($this->params)) {
-            throw new \InvalidArgumentException('params is required');
-        }
-
         $allowedFormats = ['A4', 'A3', 'Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A5', 'A6'];
         if (!in_array($this->format, $allowedFormats, true)) {
             throw new \InvalidArgumentException('format must be one of: ' . implode(', ', $allowedFormats));
