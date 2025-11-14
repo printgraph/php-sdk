@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Printgraph\PhpSdk\Api\Pdf\Generator;
 
+use Prewk\Result;
+use Prewk\Result\{Ok, Err};
+
 final class GenerateRequest
 {
+    private const ALLOWED_FORMATS = ['A4', 'A3', 'Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A5', 'A6'];
+
     /**
      * @param mixed[] $params
      */
@@ -15,15 +20,28 @@ final class GenerateRequest
         public readonly string $format = 'A4',
     ) {}
 
-    public function validate(): void
+    /**
+     * @return Result<bool, ValidationError>
+     * @phpstan-return Result<bool, ValidationError>
+     */
+    public function validate(): Result
     {
+        $errors = [];
+
         if (empty($this->templateId)) {
-            throw new \InvalidArgumentException('templateId is required');
+            $errors['templateId'] = 'templateId is required';
         }
 
-        $allowedFormats = ['A4', 'A3', 'Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A5', 'A6'];
-        if (!in_array($this->format, $allowedFormats, true)) {
-            throw new \InvalidArgumentException('format must be one of: ' . implode(', ', $allowedFormats));
+        if (!in_array($this->format, self::ALLOWED_FORMATS, true)) {
+            $errors['format'] = 'format must be one of: ' . implode(', ', self::ALLOWED_FORMATS);
         }
+
+        if (!empty($errors)) {
+            /** @var Result<bool, ValidationError> */
+            return new Err(new ValidationError($errors));
+        }
+
+        /** @var Result<bool, ValidationError> */
+        return new Ok(true);
     }
 }

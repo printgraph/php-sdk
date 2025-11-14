@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Prewk\Result\{Ok, Err};
 use Printgraph\PhpSdk\Api\Pdf\Generator\GenerateRequest;
 use Printgraph\PhpSdk\Api\Pdf\Generator\Generator;
+use Printgraph\PhpSdk\Api\Pdf\Generator\ValidationError;
 use Printgraph\PhpSdk\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -80,5 +81,44 @@ final class GeneratorTest extends TestCase
         self::assertEquals(500, $error->getStatusCode());
         self::assertTrue($error->isServerError());
         self::assertFalse($error->isClientError());
+    }
+
+    public function testGenerateReturnsValidationErrorWhenTemplateIdIsEmpty(): void
+    {
+        $mockClient = $this->createMock(ClientInterface::class);
+        $mockClient
+            ->expects($this->never())
+            ->method('request')
+        ;
+
+        $generator = new Generator($mockClient);
+        $result = $generator->generate(new GenerateRequest(''));
+
+        self::assertInstanceOf(Err::class, $result);
+
+        /** @var ValidationError $error */
+        $error = $result->unwrapErr();
+        self::assertInstanceOf(ValidationError::class, $error);
+        self::assertTrue($error->hasError('templateId'));
+        self::assertSame('templateId is required', $error->getError('templateId'));
+    }
+
+    public function testGenerateReturnsValidationErrorWhenFormatIsInvalid(): void
+    {
+        $mockClient = $this->createMock(ClientInterface::class);
+        $mockClient
+            ->expects($this->never())
+            ->method('request')
+        ;
+
+        $generator = new Generator($mockClient);
+        $result = $generator->generate(new GenerateRequest('template-123', [], 'InvalidFormat'));
+
+        self::assertInstanceOf(Err::class, $result);
+
+        /** @var ValidationError $error */
+        $error = $result->unwrapErr();
+        self::assertInstanceOf(ValidationError::class, $error);
+        self::assertTrue($error->hasError('format'));
     }
 }
