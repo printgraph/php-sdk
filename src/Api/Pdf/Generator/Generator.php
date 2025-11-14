@@ -34,7 +34,7 @@ final class Generator implements GeneratorInterface
         return $this->client->request('POST', 'v1/pdf/generate', [
             'json' => [
                 'templateId' => $generateRequest->templateId,
-                'params' => $generateRequest->params,
+                'params' => empty($generateRequest->params) ? new \stdClass() : $generateRequest->params,
                 'format' => $generateRequest->format,
             ],
             'headers' => [
