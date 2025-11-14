@@ -10,7 +10,7 @@ final class GenerateRequest
      * @param mixed[] $params
      */
     public function __construct(
-        public readonly string $templateKey,
+        public readonly string $templateId,
         public readonly array  $params,
     ) {}
 }
