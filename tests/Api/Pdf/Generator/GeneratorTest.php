@@ -20,7 +20,7 @@ final class GeneratorTest extends TestCase
         $mockClient
             ->expects($this->once())
             ->method('request')
-            ->with('POST', 'pdf/generate', [
+            ->with('POST', 'v1/pdf/generate', [
                 'json' => [
                     'templateKey' => 'template',
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
@@ -52,7 +52,7 @@ final class GeneratorTest extends TestCase
         $mockClient
             ->expects($this->once())
             ->method('request')
-            ->with('POST', 'pdf/generate', [
+            ->with('POST', 'v1/pdf/generate', [
                 'json' => [
                     'templateKey' => 'template',
                     'params' => ['param1' => 'value1', 'param2' => 'value2'],
