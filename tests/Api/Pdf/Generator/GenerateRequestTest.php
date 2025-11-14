@@ -62,6 +62,36 @@ final class GenerateRequestTest extends TestCase
         $this->assertSame('templateId is required', $error->getError('templateId'));
     }
 
+    /**
+     * @dataProvider whitespaceTemplateIdProvider
+     */
+    public function testValidateReturnsErrWhenTemplateIdIsWhitespace(string $whitespace): void
+    {
+        $request = new GenerateRequest($whitespace);
+        $result = $request->validate();
+
+        $this->assertTrue($result->isErr());
+
+        /** @var ValidationError $error */
+        $error = $result->unwrapErr();
+        $this->assertInstanceOf(ValidationError::class, $error);
+        $this->assertTrue($error->hasError('templateId'));
+        $this->assertSame('templateId is required', $error->getError('templateId'));
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public static function whitespaceTemplateIdProvider(): array
+    {
+        return [
+            'spaces' => ['   '],
+            'tab' => ["\t"],
+            'newline' => ["\n"],
+            'mixed whitespace' => [" \t\n "],
+        ];
+    }
+
     public function testValidateReturnsErrWhenFormatIsInvalid(): void
     {
         $request = new GenerateRequest('template-123', [], 'InvalidFormat');

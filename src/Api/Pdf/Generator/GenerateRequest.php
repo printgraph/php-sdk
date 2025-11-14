@@ -9,7 +9,7 @@ use Prewk\Result\{Ok, Err};
 
 final class GenerateRequest
 {
-    private const ALLOWED_FORMATS = ['A4', 'A3', 'Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A5', 'A6'];
+    private const ALLOWED_FORMATS = ['A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'Legal', 'Letter', 'Tabloid'];
 
     /**
      * @param mixed[] $params
@@ -28,7 +28,7 @@ final class GenerateRequest
     {
         $errors = [];
 
-        if (empty($this->templateId)) {
+        if (trim($this->templateId) === '') {
             $errors['templateId'] = 'templateId is required';
         }
 
