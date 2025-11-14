@@ -27,7 +27,7 @@ $pringraph = new Printgraph(
     ClientFactory::createHttpClient('<<your token>>')
 );
 $request = new GenerateRequest(
-    'template',
+    'templateId',
     ['message' => 'Hello, World']
 );
 

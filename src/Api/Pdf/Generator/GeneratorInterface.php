@@ -13,8 +13,8 @@ interface GeneratorInterface
      * PDF生成リクエストを実行
      *
      * @param GenerateRequest $generateRequest
-     * @return Result<\Printgraph\PhpSdk\Client\Response\SuccessResponse, \Printgraph\PhpSdk\Client\Response\ErrorResponse>
-     * @phpstan-return Result<\Printgraph\PhpSdk\Client\Response\SuccessResponse, \Printgraph\PhpSdk\Client\Response\ErrorResponse>
+     * @return Result<\Printgraph\PhpSdk\Client\Response\SuccessResponse, \Printgraph\PhpSdk\Client\Response\ErrorResponse|ValidationError>
+     * @phpstan-return Result<\Printgraph\PhpSdk\Client\Response\SuccessResponse, \Printgraph\PhpSdk\Client\Response\ErrorResponse|ValidationError>
      *
      * @throws \Exception
      */
